@@ -1,11 +1,11 @@
 import React from 'react'
 import { Container, Nav, Navbar } from 'react-bootstrap'
 import Link from 'next/link'
-import { useAuth } from '../context/AuthContext'
+import { userAuth } from '../context/AuthContext'
 import { useRouter } from 'next/router'
 
 const NavbarComp = () => {
-  const { user, logout } = useAuth()
+  const { user, logout } = userAuth()
   const router = useRouter()
 
   return (

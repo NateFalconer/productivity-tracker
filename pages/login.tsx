@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
-import { useAuth } from '../context/AuthContext'
+import { userAuth } from '../context/AuthContext'
 
 const Login = () => {
   const router = useRouter()
-  const { user, login } = useAuth()
+  const { user, login } = userAuth()
   const [data, setData] = useState({
     email: '',
     password: '',
