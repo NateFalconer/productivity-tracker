@@ -3,6 +3,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signInWithRedirect,
+  GithubAuthProvider,
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -29,6 +30,11 @@ export const AuthContextProvider = ({
     // signInWithRedirect(auth, provider)
   };
 
+  const githubSignIn = () => {
+    const provider = new GithubAuthProvider();
+    signInWithPopup(auth, provider);
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -43,7 +49,6 @@ export const AuthContextProvider = ({
       setLoading(false)
     })
 
-    
     return () => unsubscribe()
   }, [])
 
@@ -61,7 +66,7 @@ export const AuthContextProvider = ({
   }
 
   return (
-    <AuthContext.Provider value={{ googleSignIn, user, login, signup, logout }}>
+    <AuthContext.Provider value={{ googleSignIn, githubSignIn, user, login, signup, logout }}>
       {loading ? null : children}
     </AuthContext.Provider>
   )

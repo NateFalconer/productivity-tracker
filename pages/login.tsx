@@ -4,44 +4,29 @@ import { Button, Form } from 'react-bootstrap'
 import GoogleButton from 'react-google-button'
 import { userAuth } from '../context/AuthContext'
 
-// const Signin = () => {
-//   const router = useRouter()
-//   const { googleSignIn, user } = userAuth()
-  
-//   const handleGoogleSignIn = async (e: any) => {
-//     try {
-//       await googleSignIn();
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
-//   useEffect(() => {
-//     if (user != null) {
-//       router.push('/dashboard');
-//     }
-//   }, [user]);
-
-
-
-// };
-
-
 const Login = () => {
   const router = useRouter()
-  const { user, login, googleSignIn } = userAuth()
+  const { user, login, googleSignIn, githubSignIn } = userAuth()
   const [data, setData] = useState({
     email: '',
     password: '',
   })
+  
   const handleGoogleSignIn = async (e: any) => {
     try {
       await googleSignIn();
-      // router.push('/dashboard');
     } catch (error) {
       console.log(error);
     }
-  };
+  }
+
+  const handleGithubSignIn = async (e: any) => {
+    try {
+      await githubSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleLogin = async (e: any) => {
     e.preventDefault()
@@ -100,13 +85,15 @@ const Login = () => {
             placeholder="Password"
           />
         </Form.Group>
-        <GoogleButton onClick={handleGoogleSignIn}
-        />
+        
 
         <Button variant="primary" type="submit">
           Login
         </Button>
       </Form>
+      <GoogleButton onClick={handleGoogleSignIn}
+        />
+      <Button onClick={handleGithubSignIn}>Github Signin</Button>
     </div>
   )
 }
