@@ -1,20 +1,51 @@
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Form } from 'react-bootstrap'
+import GoogleButton from 'react-google-button'
 import { userAuth } from '../context/AuthContext'
+
+// const Signin = () => {
+//   const router = useRouter()
+//   const { googleSignIn, user } = userAuth()
+  
+//   const handleGoogleSignIn = async (e: any) => {
+//     try {
+//       await googleSignIn();
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     if (user != null) {
+//       router.push('/dashboard');
+//     }
+//   }, [user]);
+
+
+
+// };
+
 
 const Login = () => {
   const router = useRouter()
-  const { user, login } = userAuth()
+  const { user, login, googleSignIn } = userAuth()
   const [data, setData] = useState({
     email: '',
     password: '',
   })
+  const handleGoogleSignIn = async (e: any) => {
+    try {
+      await googleSignIn();
+      // router.push('/dashboard');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleLogin = async (e: any) => {
     e.preventDefault()
-
-    console.log(user)
+    // console.log(user)
     try {
       await login(data.email, data.password)
       router.push('/dashboard')
@@ -22,6 +53,12 @@ const Login = () => {
       console.log(err)
     }
   }
+
+  useEffect(() => {
+    if (user != null) {
+      router.push('/dashboard');
+    }
+  }, [user]);
 
   return (
     <div
@@ -63,6 +100,9 @@ const Login = () => {
             placeholder="Password"
           />
         </Form.Group>
+        <GoogleButton onClick={handleGoogleSignIn}
+        />
+
         <Button variant="primary" type="submit">
           Login
         </Button>

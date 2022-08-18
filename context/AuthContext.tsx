@@ -23,6 +23,12 @@ export const AuthContextProvider = ({
   const [loading, setLoading] = useState(true)
   // console.log(user)
 
+  const googleSignIn = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider);
+    // signInWithRedirect(auth, provider)
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -37,6 +43,7 @@ export const AuthContextProvider = ({
       setLoading(false)
     })
 
+    
     return () => unsubscribe()
   }, [])
 
@@ -54,7 +61,7 @@ export const AuthContextProvider = ({
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout }}>
+    <AuthContext.Provider value={{ googleSignIn, user, login, signup, logout }}>
       {loading ? null : children}
     </AuthContext.Provider>
   )

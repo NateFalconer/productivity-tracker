@@ -1,7 +1,11 @@
 import React from 'react'
+import { userAuth } from '../context/AuthContext'
 
 const Dashboard = () => {
-  return <div>This will be the dashboard</div>
+
+  const { user } = userAuth();
+
+  return <div>Welcome {user?.email}!</div>
 }
 
 export default Dashboard
